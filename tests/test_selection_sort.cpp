@@ -9,51 +9,64 @@ TEST_CASE("SelectionSort: пустой массив", "[selection_sort]") {
 }
 
 TEST_CASE("SelectionSort: один элемент", "[selection_sort]") {
-    std::vector<int> arr = {7};
+    std::vector<int> arr = {12};
     selection_sort(arr);
-    REQUIRE(arr == std::vector<int>{7});
+    REQUIRE(arr == std::vector<int>{12});
 }
 
 TEST_CASE("SelectionSort: уже отсортированный", "[selection_sort]") {
-    std::vector<int> arr = {1, 2, 3, 4, 5};
+    std::vector<int> arr = {0, 2, 5, 6, 8, 12, 14, 18};
     selection_sort(arr);
-    REQUIRE(arr == std::vector<int>{1, 2, 3, 4, 5});
+    REQUIRE(arr == std::vector<int>{0, 2, 5, 6, 8, 12, 14, 18});
 }
 
 TEST_CASE("SelectionSort: обратный порядок", "[selection_sort]") {
-    std::vector<int> arr = {5, 4, 3, 2, 1};
+    std::vector<int> arr = {18, 14, 12, 8, 6, 5, 2, 0};
     selection_sort(arr);
-    REQUIRE(arr == std::vector<int>{1, 2, 3, 4, 5});
+    REQUIRE(arr == std::vector<int>{0, 2, 5, 6, 8, 12, 14, 18});
 }
 
-TEST_CASE("SelectionSort: произвольный порядок", "[selection_sort]") {
-    std::vector<int> arr = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3};
+TEST_CASE("SelectionSort: тестовый массив", "[selection_sort]") {
+    std::vector<int> arr = {12, 6, 0, 14, 5, 18, 2, 8};
     selection_sort(arr);
-    REQUIRE(arr == std::vector<int>{1, 1, 2, 3, 3, 4, 5, 5, 6, 9});
+    REQUIRE(arr == std::vector<int>{0, 2, 5, 6, 8, 12, 14, 18});
 }
 
 TEST_CASE("SelectionSort: дубликаты", "[selection_sort]") {
-    std::vector<int> arr = {4, 4, 4, 4};
+    std::vector<int> arr = {12, 6, 0, 14, 5, 18, 2, 8, 12, 6, 0, 14, 5, 18, 2, 8};
     selection_sort(arr);
-    REQUIRE(arr == std::vector<int>{4, 4, 4, 4});
+    REQUIRE(arr == std::vector<int>{0, 0, 2, 2, 5, 5, 6, 6, 8, 8, 12, 12, 14, 14, 18, 18});
 }
 
 TEST_CASE("SelectionSort: отрицательные и положительные", "[selection_sort]") {
-    std::vector<int> arr = {5, -3, 0, -8, 2, -1};
+    std::vector<int> arr = {-12, -6, 0, -14, -5, -18, -2, -8};
     selection_sort(arr);
-    REQUIRE(arr == std::vector<int>{-8, -3, -1, 0, 2, 5});
+    REQUIRE(arr == std::vector<int>{-18, -14, -12, -8, -6, -5, -2, 0});
+}
+
+TEST_CASE("SelectionSort: два элемента, оба порядка", "[selection_sort]") {
+    SECTION("по возрастанию") {
+        std::vector<int> arr = {6, 12};
+        selection_sort(arr);
+        REQUIRE(arr == std::vector<int>{6, 12});
+    }
+    SECTION("по убыванию") {
+        std::vector<int> arr = {12, 6};
+        selection_sort(arr);
+        REQUIRE(arr == std::vector<int>{6, 12});
+    }
 }
 
 TEST_CASE("SelectionSort: double", "[selection_sort][double]") {
     SECTION("положительные дробные") {
-        std::vector<double> arr = {3.5, 1.25, 2.75, 0.5, 4.0};
+        std::vector<double> arr = {6.0, 3.0, 0.0, 7.0, 2.5, 9.0, 1.0, 4.0};
         selection_sort(arr);
-        REQUIRE(arr == std::vector<double>{0.5, 1.25, 2.75, 3.5, 4.0});
+        REQUIRE(arr == std::vector<double>{0.0, 1.0, 2.5, 3.0, 4.0, 6.0, 7.0, 9.0});
     }
     SECTION("отрицательные и положительные") {
-        std::vector<double> arr = {-1.5, 2.25, -3.75, 0.0, 1.5};
+        std::vector<double> arr = {-6.0, 3.0, 0.0, -7.0, 2.5, -9.0, 1.0, 4.0};
         selection_sort(arr);
-        REQUIRE(arr == std::vector<double>{-3.75, -1.5, 0.0, 1.5, 2.25});
+        REQUIRE(arr == std::vector<double>{-9.0, -7.0, -6.0, 0.0, 1.0, 2.5, 3.0, 4.0});
     }
     SECTION("пустой массив") {
         std::vector<double> arr;

@@ -9,51 +9,64 @@ TEST_CASE("ExchangeSort: пустой массив", "[exchange_sort]") {
 }
 
 TEST_CASE("ExchangeSort: один элемент", "[exchange_sort]") {
-    std::vector<int> arr = {99};
+    std::vector<int> arr = {12};
     exchange_sort(arr);
-    REQUIRE(arr == std::vector<int>{99});
+    REQUIRE(arr == std::vector<int>{12});
 }
 
 TEST_CASE("ExchangeSort: уже отсортированный", "[exchange_sort]") {
-    std::vector<int> arr = {1, 2, 3, 4, 5};
+    std::vector<int> arr = {0, 2, 5, 6, 8, 12, 14, 18};
     exchange_sort(arr);
-    REQUIRE(arr == std::vector<int>{1, 2, 3, 4, 5});
+    REQUIRE(arr == std::vector<int>{0, 2, 5, 6, 8, 12, 14, 18});
 }
 
 TEST_CASE("ExchangeSort: обратный порядок", "[exchange_sort]") {
-    std::vector<int> arr = {5, 4, 3, 2, 1};
+    std::vector<int> arr = {18, 14, 12, 8, 6, 5, 2, 0};
     exchange_sort(arr);
-    REQUIRE(arr == std::vector<int>{1, 2, 3, 4, 5});
+    REQUIRE(arr == std::vector<int>{0, 2, 5, 6, 8, 12, 14, 18});
 }
 
-TEST_CASE("ExchangeSort: произвольный порядок", "[exchange_sort]") {
-    std::vector<int> arr = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3};
+TEST_CASE("ExchangeSort: тестовый массив", "[exchange_sort]") {
+    std::vector<int> arr = {12, 6, 0, 14, 5, 18, 2, 8};
     exchange_sort(arr);
-    REQUIRE(arr == std::vector<int>{1, 1, 2, 3, 3, 4, 5, 5, 6, 9});
+    REQUIRE(arr == std::vector<int>{0, 2, 5, 6, 8, 12, 14, 18});
 }
 
 TEST_CASE("ExchangeSort: дубликаты", "[exchange_sort]") {
-    std::vector<int> arr = {2, 2, 2, 2, 2};
+    std::vector<int> arr = {12, 6, 0, 14, 5, 18, 2, 8, 12, 6, 0, 14, 5, 18, 2, 8};
     exchange_sort(arr);
-    REQUIRE(arr == std::vector<int>{2, 2, 2, 2, 2});
+    REQUIRE(arr == std::vector<int>{0, 0, 2, 2, 5, 5, 6, 6, 8, 8, 12, 12, 14, 14, 18, 18});
 }
 
 TEST_CASE("ExchangeSort: отрицательные и положительные", "[exchange_sort]") {
-    std::vector<int> arr = {-5, 3, -1, 0, 8, -4};
+    std::vector<int> arr = {-12, -6, 0, -14, -5, -18, -2, -8};
     exchange_sort(arr);
-    REQUIRE(arr == std::vector<int>{-5, -4, -1, 0, 3, 8});
+    REQUIRE(arr == std::vector<int>{-18, -14, -12, -8, -6, -5, -2, 0});
+}
+
+TEST_CASE("ExchangeSort: два элемента, оба порядка", "[exchange_sort]") {
+    SECTION("по возрастанию") {
+        std::vector<int> arr = {6, 12};
+        exchange_sort(arr);
+        REQUIRE(arr == std::vector<int>{6, 12});
+    }
+    SECTION("по убыванию") {
+        std::vector<int> arr = {12, 6};
+        exchange_sort(arr);
+        REQUIRE(arr == std::vector<int>{6, 12});
+    }
 }
 
 TEST_CASE("ExchangeSort: double", "[exchange_sort][double]") {
     SECTION("положительные дробные") {
-        std::vector<double> arr = {3.5, 1.25, 2.75, 0.5, 4.0};
+        std::vector<double> arr = {6.0, 3.0, 0.0, 7.0, 2.5, 9.0, 1.0, 4.0};
         exchange_sort(arr);
-        REQUIRE(arr == std::vector<double>{0.5, 1.25, 2.75, 3.5, 4.0});
+        REQUIRE(arr == std::vector<double>{0.0, 1.0, 2.5, 3.0, 4.0, 6.0, 7.0, 9.0});
     }
     SECTION("отрицательные и положительные") {
-        std::vector<double> arr = {-1.5, 2.25, -3.75, 0.0, 1.5};
+        std::vector<double> arr = {-6.0, 3.0, 0.0, -7.0, 2.5, -9.0, 1.0, 4.0};
         exchange_sort(arr);
-        REQUIRE(arr == std::vector<double>{-3.75, -1.5, 0.0, 1.5, 2.25});
+        REQUIRE(arr == std::vector<double>{-9.0, -7.0, -6.0, 0.0, 1.0, 2.5, 3.0, 4.0});
     }
     SECTION("пустой массив") {
         std::vector<double> arr;

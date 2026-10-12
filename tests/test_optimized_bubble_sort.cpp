@@ -9,51 +9,64 @@ TEST_CASE("OptimizedBubbleSort: пустой массив", "[optimized_bubble_s
 }
 
 TEST_CASE("OptimizedBubbleSort: один элемент", "[optimized_bubble_sort]") {
-    std::vector<int> arr = {13};
+    std::vector<int> arr = {12};
     optimized_bubble_sort(arr);
-    REQUIRE(arr == std::vector<int>{13});
+    REQUIRE(arr == std::vector<int>{12});
 }
 
 TEST_CASE("OptimizedBubbleSort: уже отсортированный", "[optimized_bubble_sort]") {
-    std::vector<int> arr = {1, 2, 3, 4, 5, 6, 7, 8};
+    std::vector<int> arr = {0, 2, 5, 6, 8, 12, 14, 18};
     optimized_bubble_sort(arr);
-    REQUIRE(arr == std::vector<int>{1, 2, 3, 4, 5, 6, 7, 8});
+    REQUIRE(arr == std::vector<int>{0, 2, 5, 6, 8, 12, 14, 18});
 }
 
 TEST_CASE("OptimizedBubbleSort: обратный порядок", "[optimized_bubble_sort]") {
-    std::vector<int> arr = {8, 7, 6, 5, 4, 3, 2, 1};
+    std::vector<int> arr = {18, 14, 12, 8, 6, 5, 2, 0};
     optimized_bubble_sort(arr);
-    REQUIRE(arr == std::vector<int>{1, 2, 3, 4, 5, 6, 7, 8});
+    REQUIRE(arr == std::vector<int>{0, 2, 5, 6, 8, 12, 14, 18});
 }
 
-TEST_CASE("OptimizedBubbleSort: произвольный порядок", "[optimized_bubble_sort]") {
-    std::vector<int> arr = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3};
+TEST_CASE("OptimizedBubbleSort: тестовый массив", "[optimized_bubble_sort]") {
+    std::vector<int> arr = {12, 6, 0, 14, 5, 18, 2, 8};
     optimized_bubble_sort(arr);
-    REQUIRE(arr == std::vector<int>{1, 1, 2, 3, 3, 4, 5, 5, 6, 9});
+    REQUIRE(arr == std::vector<int>{0, 2, 5, 6, 8, 12, 14, 18});
 }
 
 TEST_CASE("OptimizedBubbleSort: почти отсортированный", "[optimized_bubble_sort]") {
-    std::vector<int> arr = {1, 2, 3, 5, 4, 6, 7, 8};
+    std::vector<int> arr = {0, 2, 5, 6, 12, 8, 14, 18};
     optimized_bubble_sort(arr);
-    REQUIRE(arr == std::vector<int>{1, 2, 3, 4, 5, 6, 7, 8});
+    REQUIRE(arr == std::vector<int>{0, 2, 5, 6, 8, 12, 14, 18});
 }
 
 TEST_CASE("OptimizedBubbleSort: отрицательные", "[optimized_bubble_sort]") {
-    std::vector<int> arr = {-1, 0, -5, 3, -2};
+    std::vector<int> arr = {-12, -6, 0, -14, -5, -18, -2, -8};
     optimized_bubble_sort(arr);
-    REQUIRE(arr == std::vector<int>{-5, -2, -1, 0, 3});
+    REQUIRE(arr == std::vector<int>{-18, -14, -12, -8, -6, -5, -2, 0});
+}
+
+TEST_CASE("OptimizedBubbleSort: два элемента, оба порядка", "[optimized_bubble_sort]") {
+    SECTION("по возрастанию") {
+        std::vector<int> arr = {6, 12};
+        optimized_bubble_sort(arr);
+        REQUIRE(arr == std::vector<int>{6, 12});
+    }
+    SECTION("по убыванию") {
+        std::vector<int> arr = {12, 6};
+        optimized_bubble_sort(arr);
+        REQUIRE(arr == std::vector<int>{6, 12});
+    }
 }
 
 TEST_CASE("OptimizedBubbleSort: double", "[optimized_bubble_sort][double]") {
     SECTION("положительные дробные") {
-        std::vector<double> arr = {3.5, 1.25, 2.75, 0.5, 4.0};
+        std::vector<double> arr = {6.0, 3.0, 0.0, 7.0, 2.5, 9.0, 1.0, 4.0};
         optimized_bubble_sort(arr);
-        REQUIRE(arr == std::vector<double>{0.5, 1.25, 2.75, 3.5, 4.0});
+        REQUIRE(arr == std::vector<double>{0.0, 1.0, 2.5, 3.0, 4.0, 6.0, 7.0, 9.0});
     }
     SECTION("отрицательные и положительные") {
-        std::vector<double> arr = {-1.5, 2.25, -3.75, 0.0, 1.5};
+        std::vector<double> arr = {-6.0, 3.0, 0.0, -7.0, 2.5, -9.0, 1.0, 4.0};
         optimized_bubble_sort(arr);
-        REQUIRE(arr == std::vector<double>{-3.75, -1.5, 0.0, 1.5, 2.25});
+        REQUIRE(arr == std::vector<double>{-9.0, -7.0, -6.0, 0.0, 1.0, 2.5, 3.0, 4.0});
     }
     SECTION("пустой массив") {
         std::vector<double> arr;
